@@ -4,10 +4,14 @@ import {
   Home, Activity, ClipboardList, Zap, BookOpen, BarChart2, Microscope,
   ShieldCheck, Syringe, TrendingUp, FileText, Stethoscope, Users,
   Brain, Settings, Moon, Sun, Menu, Download, Upload, Plane,
-  Droplet, Siren, Receipt
+  Droplet, Siren, Receipt, HelpCircle
 } from 'lucide-react'
 import { exportData } from '../lib/backup'
 import { syncKey } from '../lib/auth'
+import OnboardingModal from './OnboardingModal'
+import TabTour from './TabTour'
+import Assistant from './Assistant'
+import { hasOnboarded, setOnboarded } from '../lib/help'
 
 const NAV_GROUPS = [
   {
@@ -88,6 +92,10 @@ export default function Layout({ children, session, onLogout, backupBanner, onDi
   const location  = useLocation()
   const [darkMode, setDarkMode] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showOnboard, setShowOnboard] = useState(() => !hasOnboarded())
+  const [tourReplay, setTourReplay] = useState(0)
+
+  const closeOnboard = () => { setOnboarded(); setShowOnboard(false) }
 
   // Tema default: Gioiello (blu-grigio, palette gioiello vivida)
   React.useEffect(() => {
@@ -196,6 +204,14 @@ export default function Layout({ children, session, onLogout, backupBanner, onDi
               <h2 className="cc-page-title">{meta.title}</h2>
             </div>
             <div className="cc-topbar-actions">
+              <button
+                className="cc-help-btn"
+                onClick={() => setTourReplay((n) => n + 1)}
+                title="Rivedi il tutorial di questa sezione"
+                aria-label="Aiuto sezione"
+              >
+                <HelpCircle size={18} />
+              </button>
               <button className="cc-btn-ghost" onClick={exportData}>
                 <Download size={15} />
                 Backup
@@ -221,11 +237,18 @@ export default function Layout({ children, session, onLogout, backupBanner, onDi
           )}
 
           {/* Page content */}
-          {children ?? <Outlet />}
+          <div className="cc-page" key={location.pathname}>
+            {children ?? <Outlet />}
+          </div>
         </div>
       </main>
 
       <input ref={importRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
+
+      {/* Onboarding (primo accesso) · tutorial della scheda · assistente virtuale */}
+      {showOnboard && <OnboardingModal onClose={closeOnboard} />}
+      <TabTour path={location.pathname} replayKey={tourReplay} enabled={!showOnboard} />
+      <Assistant path={location.pathname} />
     </div>
   )
 }
