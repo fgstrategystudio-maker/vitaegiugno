@@ -162,6 +162,20 @@ const HELP = {
       { q: 'come traccio il ciclo mestruale', a: 'In Ciclo mestruale segni inizio e durata del ciclo, con sintomi e note. Con qualche mese di dati vedi la regolarità e una previsione del prossimo.' },
     ],
   },
+  '/gravidanza': {
+    title: 'Gravidanza',
+    tagline: 'Segui la gravidanza e tieni lo storico.',
+    steps: [
+      { title: 'Gravidanza in corso?', body: 'Indica se sei incinta con un tocco. Se sì, inserisci la data delle ultime mestruazioni e Vitae calcola la settimana e la data presunta del parto.' },
+      { title: 'Ecografie e analisi', body: 'Aggiungi gli appuntamenti ecografici e le analisi del sangue con data ed esito, così hai tutto il percorso in un posto solo.' },
+      { title: 'Gravidanze pregresse', body: 'Registra le gravidanze precedenti: se portate a termine, con tipo di parto e data. È un’informazione utile per i medici.' },
+    ],
+    faqs: [
+      { q: 'come segno gravidanza incinta settimana parto ultime mestruazioni', a: '🤰 In Gravidanza attivi “in corso”, metti la data delle ultime mestruazioni e l’app calcola settimana e data presunta del parto (modificabile a mano).' },
+      { q: 'dove metto ecografie analisi del sangue gravidanza appuntamenti', a: '📅 Sempre in Gravidanza: aggiungi ecografie/appuntamenti e analisi del sangue con data ed esito.' },
+      { q: 'gravidanze pregresse precedenti tipo di parto a termine', a: '👶 In “Gravidanze pregresse” aggiungi quelle passate: se portate a termine, indichi tipo di parto e data.' },
+    ],
+  },
   '/screening': {
     title: 'Screening',
     tagline: 'Gli esami di prevenzione, mai più dimenticati.',
@@ -336,6 +350,7 @@ export function quickQuestions(path) {
     '/sangue': ['Come inserisco le analisi?', 'Cosa sono i valori fuori range?'],
     '/emergenza': ['Cosa metto in Emergenza?'],
     '/documenti': ['Come carico un documento?'],
+    '/gravidanza': ['Come calcolo la settimana?', 'Dove metto le ecografie?'],
     '/analisi': ['Cosa fa l’Analisi AI?'],
   }
   return MAP[path] || [`Cosa posso fare in ${here.title}?`, 'Come faccio il backup?']

@@ -88,6 +88,12 @@ function CondEditForm({ item, onSave, onCancel }) {
           {CONDITION_STATUS.map(s => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}
         </select>
       </Field>
+      <Field label="Cronica?">
+        <label className="flex items-center gap-2 text-sm text-gray-700 px-1 py-2 cursor-pointer">
+          <input type="checkbox" checked={!!draft.chronic} onChange={e => d('chronic', e.target.checked)} />
+          Patologia cronica
+        </label>
+      </Field>
       <Field label="Note"><input className={input} value={draft.notes} onChange={e => d('notes', e.target.value)} /></Field>
       <div className="col-span-2 flex gap-2">
         <button onClick={() => onSave(draft)} className={`${btn} bg-red-600 text-white hover:bg-red-700`}><Check size={13} className="inline mr-1" />Salva</button>
@@ -182,6 +188,7 @@ function CondRow({ item, onDelete, onUpdate }) {
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLOR[item.status] || 'bg-gray-100 text-gray-600'}`}>{STATUS_LABEL[item.status]}</span>
+            {item.chronic && <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-red-100 text-red-700">Cronica</span>}
             {item.notes && <span className="text-xs text-gray-400 hidden sm:block">{item.notes}</span>}
             <button onClick={() => setEditing(true)} className="text-gray-300 hover:text-blue-500 transition-colors ml-1"><Edit2 size={14} /></button>
             <button onClick={onDelete} className="text-gray-300 hover:text-red-500 transition-colors"><Trash2 size={14} /></button>
@@ -273,7 +280,7 @@ export default function Overview() {
 
   const [newAllergy, setNewAllergy] = useState({ type: '', name: '', severity: 'lieve', notes: '', drug_allergy: false })
   const [newMed, setNewMed] = useState({ name: '', dosage: '', frequency: '', reason: '', notes: '', start_date: '', end_date: '' })
-  const [newCond, setNewCond] = useState({ name: '', diagnosed_date: '', status: 'active', notes: '' })
+  const [newCond, setNewCond] = useState({ name: '', diagnosed_date: '', status: 'active', chronic: false, notes: '' })
   const [newVacc, setNewVacc] = useState({ name: '', date: '', next_date: '', notes: '' })
 
   const [showAllergyForm, setShowAllergyForm] = useState(false)
@@ -285,7 +292,7 @@ export default function Overview() {
 
   const addAllergy = () => { if (!newAllergy.name) return; setAllergyList(store.allergies.add(newAllergy)); setNewAllergy({ type: '', name: '', severity: 'lieve', notes: '', drug_allergy: false }); setShowAllergyForm(false) }
   const addMed     = () => { if (!newMed.name) return; setMedList(store.medications.add(newMed)); setNewMed({ name: '', dosage: '', frequency: '', reason: '', notes: '', start_date: '', end_date: '' }); setShowMedForm(false) }
-  const addCond    = () => { if (!newCond.name) return; setCondList(store.conditions.add(newCond)); setNewCond({ name: '', diagnosed_date: '', status: 'active', notes: '' }); setShowCondForm(false) }
+  const addCond    = () => { if (!newCond.name) return; setCondList(store.conditions.add(newCond)); setNewCond({ name: '', diagnosed_date: '', status: 'active', chronic: false, notes: '' }); setShowCondForm(false) }
   const addVacc    = () => { if (!newVacc.name) return; setVaccList(store.vaccinations.add(newVacc)); setNewVacc({ name: '', date: '', next_date: '', notes: '' }); setShowVaccForm(false) }
 
   const updateAllergy = (id, data) => setAllergyList(store.allergies.update(id, data))
@@ -464,7 +471,7 @@ export default function Overview() {
       </Section>
 
       {/* ── Patologie ───────────────────────────────────────────────────────── */}
-      <Section title="Patologie croniche" accent="text-red-600" badge={condList.length}>
+      <Section title="Patologie" accent="text-red-600" badge={condList.length}>
         <div className="mb-3">
           {condList.map(c => (
             <CondRow key={c.id} item={c} onDelete={() => setCondList(store.conditions.remove(c.id))} onUpdate={updateCond} />
@@ -478,6 +485,12 @@ export default function Overview() {
               <select className={input} value={newCond.status} onChange={e => setNewCond({ ...newCond, status: e.target.value })}>
                 {CONDITION_STATUS.map(s => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}
               </select>
+            </Field>
+            <Field label="Cronica?">
+              <label className="flex items-center gap-2 text-sm text-gray-700 px-1 py-2 cursor-pointer">
+                <input type="checkbox" checked={!!newCond.chronic} onChange={e => setNewCond({ ...newCond, chronic: e.target.checked })} />
+                Patologia cronica
+              </label>
             </Field>
             <Field label="Note"><input className={input} value={newCond.notes} onChange={e => setNewCond({ ...newCond, notes: e.target.value })} /></Field>
             <div className="col-span-2 flex gap-2">

@@ -23,8 +23,8 @@ export function buildInsuranceReport({ profile, selectedEpisodes, allergies, med
 
       ${conditions.length ? `
       <div style="margin-bottom: 1.5rem;">
-        <h2 style="font-size: 1rem; font-weight: bold; color: #0369a1; margin-bottom: 0.5rem; border-bottom: 1px solid #e0f2fe; padding-bottom: 0.25rem;">Condizioni / Patologie croniche</h2>
-        ${conditions.map(c => `<p style="margin: 0.25rem 0; font-size: 0.875rem;">• <strong>${c.name}</strong> — ${c.status || '—'}${c.diagnosed_date ? ` (dal ${c.diagnosed_date})` : ''}${c.notes ? ` — ${c.notes}` : ''}</p>`).join('')}
+        <h2 style="font-size: 1rem; font-weight: bold; color: #0369a1; margin-bottom: 0.5rem; border-bottom: 1px solid #e0f2fe; padding-bottom: 0.25rem;">Condizioni / Patologie</h2>
+        ${conditions.map(c => `<p style="margin: 0.25rem 0; font-size: 0.875rem;">• <strong>${c.name}</strong>${c.chronic ? ' (cronica)' : ''} — ${c.status || '—'}${c.diagnosed_date ? ` (dal ${c.diagnosed_date})` : ''}${c.notes ? ` — ${c.notes}` : ''}</p>`).join('')}
       </div>` : ''}
 
       ${selectedEpisodes.length ? `

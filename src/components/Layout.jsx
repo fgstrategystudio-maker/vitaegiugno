@@ -4,7 +4,7 @@ import {
   Home, Activity, ClipboardList, Zap, BookOpen, BarChart2, Microscope,
   ShieldCheck, Syringe, TrendingUp, FileText, Stethoscope, Users,
   Brain, Settings, Moon, Sun, Menu, Download, Upload, Plane,
-  Droplet, Siren, Receipt, HelpCircle
+  Droplet, Siren, Receipt, HelpCircle, Baby
 } from 'lucide-react'
 import { exportData } from '../lib/backup'
 import { syncKey } from '../lib/auth'
@@ -31,6 +31,7 @@ const NAV_GROUPS = [
       { to: '/misurazioni', icon: BarChart2,   label: 'Misurazioni'        },
       { to: '/sangue',      icon: Microscope,  label: 'Analisi sangue'     },
       { to: '/ciclo',       icon: Droplet,     label: 'Ciclo mestruale'    },
+      { to: '/gravidanza',  icon: Baby,        label: 'Gravidanza'         },
     ]
   },
   {
@@ -71,6 +72,7 @@ const PAGE_META = {
   '/sintesi':      { eyebrow: 'PANORAMICA',     title: 'Sintesi Clinica'    },
   '/emergenza':    { eyebrow: 'PANORAMICA',     title: 'Emergenza'          },
   '/ciclo':        { eyebrow: 'DIARIO CLINICO', title: 'Ciclo mestruale'    },
+  '/gravidanza':   { eyebrow: 'DIARIO CLINICO', title: 'Gravidanza'         },
   '/polizze':      { eyebrow: 'ASSICURAZIONE',  title: 'Polizze & Rimborsi' },
   '/infortuni':    { eyebrow: 'DIARIO CLINICO', title: 'Infortuni'          },
   '/watchlist':    { eyebrow: 'DIARIO CLINICO', title: 'Diario ed Appunti'  },

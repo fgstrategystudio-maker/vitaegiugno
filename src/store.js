@@ -76,6 +76,13 @@ export const cycleStore = listStore('mcd_cycle')          // ciclo mestruale
 export const policiesStore = listStore('mcd_policies')     // polizze assicurative
 export const claimsStore = listStore('mcd_claims')         // pratiche di rimborso
 
+// Gravidanza
+export const getPregnancy = () => load('mcd_pregnancy', {})        // { active, lmp, edd }
+export const savePregnancy = (data) => save('mcd_pregnancy', data)
+export const pregScansStore = listStore('mcd_preg_scans')  // ecografie / appuntamenti
+export const pregLabsStore  = listStore('mcd_preg_labs')   // analisi del sangue in gravidanza
+export const pregPastStore  = listStore('mcd_preg_past')   // gravidanze pregresse
+
 export const attachDocToEpisode = (episodeId, doc) => {
   const list = load('mcd_episodes', [])
   const next = list.map(e => e.id === episodeId

@@ -19,6 +19,7 @@ import Family from './pages/Family'
 import Vaccini from './pages/Vaccini'
 import Viaggi from './pages/Viaggi'
 import CicloMestruale from './pages/CicloMestruale'
+import Gravidanza from './pages/Gravidanza'
 import Polizze from './pages/Polizze'
 import Emergenza from './pages/Emergenza'
 
@@ -44,6 +45,7 @@ export default function App({ session, onLogout, backupBanner, onDismissBackup }
         <Route path="/sintesi" element={<Sintesi />} />
         <Route path="/famiglia" element={<Family />} />
         <Route path="/ciclo" element={<CicloMestruale />} />
+        <Route path="/gravidanza" element={<Gravidanza />} />
         <Route path="/polizze" element={<Polizze />} />
         <Route path="/emergenza" element={<Emergenza />} />
       </Routes>
