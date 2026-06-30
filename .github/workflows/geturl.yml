@@ -1,0 +1,19 @@
+name: Get URL
+on:
+  workflow_dispatch:
+
+jobs:
+  url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch production URL
+        run: |
+          AUTH="Authorization: Bearer $VERCEL_TOKEN"
+          TID=$(curl -s -H "$AUTH" "https://api.vercel.com/v2/teams" | jq -r '.teams[0].id // empty')
+          Q=""; [ -n "$TID" ] && Q="?teamId=$TID"
+          P=$(curl -s -H "$AUTH" "https://api.vercel.com/v9/projects/vitae$Q")
+          echo "::notice title=alias::$(echo "$P" | jq -rc '[.targets.production.alias[]?]|join(" , ")' 2>/dev/null | head -c 220)"
+          D=$(curl -s -H "$AUTH" "https://api.vercel.com/v6/deployments?app=vitae&target=production&limit=1${TID:+&teamId=$TID}")
+          echo "::notice title=latest::$(echo "$D" | jq -rc '.deployments[0].url // (.error.message)' 2>/dev/null | head -c 200)"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

@@ -1,0 +1,47 @@
+@import './design-system.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Centra testo in tutto il contenuto principale */
+.cc-main-inner * { text-align: center; }
+
+/* Eccezioni: elementi che devono restare allineati a sinistra */
+.cc-main-inner input,
+.cc-main-inner textarea,
+.cc-main-inner select,
+.cc-main-inner table,
+.cc-main-inner th,
+.cc-main-inner td,
+.cc-main-inner .text-left,
+.cc-main-inner pre,
+.cc-main-inner code,
+.cc-main-inner [class*="font-mono"] { text-align: left !important; }
+
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: white !important; }
+  header, nav, footer { display: none !important; }
+  main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+  .bg-white { background: white !important; }
+  * { box-shadow: none !important; }
+  @page { margin: 1.5cm; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  30% { transform: translateX(6px); }
+  45% { transform: translateX(-5px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(3px); }
+}
+.animate-shake { animation: shake 0.55s ease-in-out; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.25s ease-out; }

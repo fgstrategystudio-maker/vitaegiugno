@@ -1,0 +1,52 @@
+name: Deploy Vitae
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install deps & Vercel CLI
+        run: |
+          npm install
+          npm install -g vercel@latest
+      - name: Ensure project (via API)
+        run: |
+          AUTH="Authorization: Bearer $VERCEL_TOKEN"
+          TID=$(curl -s -H "$AUTH" "https://api.vercel.com/v2/teams" | jq -r '.teams[0].id // empty')
+          Q=""; [ -n "$TID" ] && Q="?teamId=$TID"
+          PID=$(curl -s -H "$AUTH" "https://api.vercel.com/v9/projects/vitae$Q" | jq -r '.id // empty')
+          if [ -z "$PID" ]; then
+            RESP=$(curl -s -X POST -H "$AUTH" -H "Content-Type: application/json" "https://api.vercel.com/v10/projects$Q" -d '{"name":"vitae","framework":"vite"}')
+            PID=$(echo "$RESP" | jq -r '.id // empty')
+            [ -z "$PID" ] && { echo "::error title=Progetto::$(echo "$RESP" | jq -rc '.error' | head -c 200)"; exit 1; }
+          fi
+          if [ -z "$TID" ]; then TID=$(curl -s -H "$AUTH" https://api.vercel.com/v2/user | jq -r '.user.id // .id'); fi
+          echo "project=$PID org=$TID"
+          echo "VERCEL_ORG_ID=$TID" >> $GITHUB_ENV
+          echo "VERCEL_PROJECT_ID=$PID" >> $GITHUB_ENV
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - name: Build & deploy (prebuilt)
+        run: |
+          set +e
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN" 2>&1 | tail -3
+          vercel build --prod --token="$VERCEL_TOKEN" 2>&1 | tail -6
+          OUT=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" 2>&1)
+          CODE=$?
+          echo "$OUT"
+          if [ $CODE -ne 0 ]; then
+            echo "::error title=Deploy fallito::$(echo "$OUT" | tail -5 | tr '\n' ' | ')"
+            exit 1
+          fi
+          URL=$(echo "$OUT" | grep -oE 'https://[a-zA-Z0-9.-]+\.vercel\.app' | tail -1)
+          echo "::notice title=Vitae Production URL::$URL"
+          echo "URL: $URL" >> "$GITHUB_STEP_SUMMARY"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
