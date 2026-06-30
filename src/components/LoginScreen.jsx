@@ -17,11 +17,19 @@ export default function LoginScreen({ onLogin }) {
 
   const submit = async (e) => {
     e.preventDefault()
+    // Leggi i valori direttamente dal form (non solo dallo stato di React):
+    // il riempimento automatico del gestore password a volte non aggiorna
+    // lo stato controllato, e senza questo la password salvata non verrebbe presa.
+    const form = e.currentTarget
+    const emailVal = String(form.elements.username?.value ?? email).trim()
+    const passVal = String(form.elements.password?.value ?? password)
+    const nameVal = name || emailVal.split('@')[0]
+    setEmail(emailVal); setPassword(passVal) // riallinea lo stato ai valori reali
     setError(''); setLoading(true)
     try {
       const sess = mode === 'signup'
-        ? await register(email, password, name || email.split('@')[0])
-        : await login(email, password)
+        ? await register(emailVal, passVal, nameVal)
+        : await login(emailVal, passVal)
       await onLogin(sess.userId, sess.userName)
     } catch (err) {
       setError(err.message || 'Errore, riprova')
