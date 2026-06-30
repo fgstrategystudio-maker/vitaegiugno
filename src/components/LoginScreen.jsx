@@ -91,11 +91,11 @@ export default function LoginScreen({ onLogin }) {
           )}
           <div style={field}>
             <Mail size={17} color="var(--ink-3)" />
-            <input style={inp} type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" required />
+            <input style={inp} type="email" name="username" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="username" required />
           </div>
           <div style={field}>
             <Lock size={17} color="var(--ink-3)" />
-            <input style={inp} type={show ? 'text' : 'password'} placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required />
+            <input style={inp} type={show ? 'text' : 'password'} name="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} required />
             <button type="button" onClick={() => setShow(s => !s)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink-3)', display: 'grid', placeItems: 'center' }}>
               {show ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>

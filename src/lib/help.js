@@ -28,28 +28,28 @@ export const resetAllTutorials = () => {
 export const ONBOARDING = [
   {
     icon: 'heart',
-    title: `Benvenuto in ${APP_NAME}`,
-    body: 'La tua cartella clinica personale. Qui raccogli infortuni, esami, misurazioni, documenti e tutta la tua storia di salute, in un posto solo e sempre con te.',
+    title: `Benvenuto in ${APP_NAME} 👋`,
+    body: 'La tua cartella clinica personale. Qui raccogli infortuni, esami, misurazioni, documenti e tutta la tua storia di salute, in un posto solo e sempre con te. 💙',
   },
   {
     icon: 'menu',
     title: 'Tutto a portata di menu',
-    body: 'Usa il menu a sinistra per spostarti tra le sezioni: Panoramica, Diario clinico, Prevenzione, Assicurazione e Archivio. Su telefono si apre con il pulsante in alto a sinistra.',
+    body: 'Usa il menu a sinistra per spostarti tra le sezioni: Panoramica, Diario clinico, Prevenzione, Assicurazione e Archivio. 📱 Su telefono si apre con il pulsante in alto a sinistra.',
   },
   {
     icon: 'compass',
     title: 'Tutorial quando ti serve',
-    body: 'La prima volta che apri una sezione ti spiego cosa puoi farci. Puoi rivedere la guida in qualsiasi momento con il pulsante “?” in alto.',
+    body: 'La prima volta che apri una sezione ti spiego cosa puoi farci. 🧭 Puoi rivedere la guida in qualsiasi momento con il pulsante “Rivedi tutorial” in alto.',
   },
   {
     icon: 'sparkles',
     title: 'Un assistente sempre con te',
-    body: 'In basso a destra trovi l’assistente: chiedigli a voce tua cosa puoi fare in ogni sezione e ti rispondo subito.',
+    body: 'In basso a destra trovi l’assistente: chiedigli a parole tue cosa puoi fare in ogni sezione e ti rispondo subito. 💬',
   },
   {
     icon: 'shield',
     title: 'I tuoi dati sono al sicuro',
-    body: 'I dati restano tuoi. Ricordati di fare ogni tanto un Backup (in alto) per non perdere nulla e poterli ripristinare su un altro dispositivo.',
+    body: 'I dati restano tuoi. 🔒 Ricordati di fare ogni tanto un Backup (in alto) per non perdere nulla e poterli ripristinare su un altro dispositivo.',
   },
 ]
 
@@ -67,7 +67,7 @@ const HELP = {
     ],
     faqs: [
       { q: 'cosa posso fare nella home dashboard panoramica', a: 'La Home è il riepilogo della tua salute: ultimi eventi, scadenze e numeri principali. Da qui apri tutte le altre sezioni dal menu a sinistra.' },
-      { q: 'come faccio il backup salvare dati', a: 'Clicca “Backup” in alto a destra: scarichi un file con tutti i tuoi dati. Per rimetterli usa “Ripristina” e scegli quel file.' },
+      { q: 'come faccio il backup salvare dati', a: '💾 Clicca “Backup” in alto a destra: scarichi un file con tutti i tuoi dati. Per rimetterli usa “Ripristina” e scegli quel file.' },
     ],
   },
   '/timeline': {
@@ -100,7 +100,7 @@ const HELP = {
       { title: 'Sempre accessibile', body: 'Tienila aggiornata: in un’urgenza chi ti soccorre trova subito ciò che serve.' },
     ],
     faqs: [
-      { q: 'cosa metto in emergenza allergie gruppo sanguigno contatti', a: 'Nella sezione Emergenza inserisci gruppo sanguigno, allergie, terapie in corso e i contatti da avvisare. Sono i dati che servono subito a chi ti soccorre.' },
+      { q: 'cosa metto in emergenza allergie gruppo sanguigno contatti', a: '🚑 Nella sezione Emergenza inserisci gruppo sanguigno, allergie, terapie in corso e i contatti da avvisare. Sono i dati che servono subito a chi ti soccorre.' },
     ],
   },
   '/infortuni': {
@@ -112,7 +112,7 @@ const HELP = {
       { title: 'Allega referti', body: 'Collega documenti o foto (radiografie, referti) per avere tutto insieme.' },
     ],
     faqs: [
-      { q: 'come aggiungo registro un infortunio trauma', a: 'Apri Infortuni e usa il pulsante per aggiungerne uno: indica data, zona del corpo, cosa è successo e l’esito. Puoi anche segnare la parte sulla mappa del corpo e allegare referti.' },
+      { q: 'come aggiungo registro un infortunio trauma', a: '🩹 Apri Infortuni e usa il pulsante per aggiungerne uno: indica data, zona del corpo, cosa è successo e l’esito. Puoi anche segnare la parte sulla mappa del corpo e allegare referti.' },
       { q: 'cosa è la mappa del corpo body map', a: 'È una figura su cui indichi la zona interessata dall’infortunio, così ritrovi velocemente tutto per parte del corpo.' },
     ],
   },
@@ -135,7 +135,7 @@ const HELP = {
       { title: 'Guarda l’andamento', body: 'I grafici ti mostrano come cambiano i valori nel tempo: capisci subito se stai migliorando.' },
     ],
     faqs: [
-      { q: 'come aggiungo una misurazione peso pressione', a: 'In Misurazioni aggiungi un valore (peso, pressione, battito, glicemia…) con la data. I grafici mostrano l’andamento nel tempo.' },
+      { q: 'come aggiungo una misurazione peso pressione', a: '📈 In Misurazioni aggiungi un valore (peso, pressione, battito, glicemia…) con la data. I grafici mostrano l’andamento nel tempo.' },
       { q: 'dove vedo i grafici andamento', a: 'In Misurazioni: dopo aver inserito qualche valore, i grafici mostrano come cambia nel tempo.' },
     ],
   },
@@ -147,7 +147,7 @@ const HELP = {
       { title: 'Confronta nel tempo', body: 'Vitae ti mostra l’andamento di ogni valore e segnala quelli fuori dai limiti di riferimento.' },
     ],
     faqs: [
-      { q: 'come inserisco le analisi del sangue esami valori', a: 'In Analisi del Sangue aggiungi i singoli valori (es. colesterolo, glicemia, emoglobina) con la data. Puoi confrontarli nel tempo e vedere quelli fuori soglia.' },
+      { q: 'come inserisco le analisi del sangue esami valori', a: '🩸 In Analisi del Sangue aggiungi i singoli valori (es. colesterolo, glicemia, emoglobina) con la data. Puoi confrontarli nel tempo e vedere quelli fuori soglia.' },
       { q: 'valori fuori range riferimento alti bassi', a: 'Quando un valore è fuori dai limiti di riferimento, viene evidenziato così te ne accorgi subito.' },
     ],
   },
@@ -181,7 +181,7 @@ const HELP = {
       { title: 'Richiami in tempo', body: 'Tieni sott’occhio le date dei richiami per restare sempre coperto.' },
     ],
     faqs: [
-      { q: 'come segno i vaccini richiami libretto vaccinale', a: 'In Vaccini registri ogni vaccino con data e tipo e tieni traccia dei richiami, come un libretto vaccinale digitale.' },
+      { q: 'come segno i vaccini richiami libretto vaccinale', a: '💉 In Vaccini registri ogni vaccino con data e tipo e tieni traccia dei richiami, come un libretto vaccinale digitale.' },
     ],
   },
   '/pattern': {
@@ -214,7 +214,7 @@ const HELP = {
       { title: 'Ritrova in fretta', body: 'Cataloga i documenti per ritrovarli quando ti servono, anche fuori casa.' },
     ],
     faqs: [
-      { q: 'come carico salvo documenti referti pdf', a: 'In Documenti carichi referti, ricette, immagini e PDF in un archivio ordinato, così li ritrovi sempre quando ti servono.' },
+      { q: 'come carico salvo documenti referti pdf', a: '📄 In Documenti carichi referti, ricette, immagini e PDF in un archivio ordinato, così li ritrovi sempre quando ti servono.' },
     ],
   },
   '/medici': {
@@ -258,7 +258,7 @@ const HELP = {
       { title: 'Non sostituisce il medico', body: 'È un supporto informativo: per diagnosi e terapie affidati sempre al tuo medico.' },
     ],
     faqs: [
-      { q: 'cosa fa analisi ai intelligenza artificiale referti', a: 'In Analisi AI l’intelligenza artificiale ti aiuta a leggere referti e dati e a tirarne fuori spunti. Resta un supporto informativo, non sostituisce il medico.' },
+      { q: 'cosa fa analisi ai intelligenza artificiale referti', a: '🤖 In Analisi AI l’intelligenza artificiale ti aiuta a leggere referti e dati e a tirarne fuori spunti. Resta un supporto informativo, non sostituisce il medico.' },
     ],
   },
   '/impostazioni': {
@@ -301,7 +301,7 @@ export function askAssistant(path, question) {
   const here = getHelp(path)
 
   if (qTokens.length === 0) {
-    return { text: `${here.tagline} ${here.steps?.[0]?.body || ''}` }
+    return { text: `${here.tagline} ✨ ${here.steps?.[0]?.body || ''}` }
   }
 
   const score = (faq) => {
@@ -317,7 +317,7 @@ export function askAssistant(path, question) {
   if (!best || best.s < 1) {
     const list = (here.steps || []).map((s) => `• ${s.title}: ${s.body}`).join('\n')
     return {
-      text: `In “${here.title}” ${here.tagline}\n\n${list}\n\nProva a chiedermi anche di un’altra sezione (es. “come aggiungo un infortunio?”).`,
+      text: `In “${here.title}” ${here.tagline} 👇\n\n${list}\n\nProva a chiedermi anche di un’altra sezione (es. “come aggiungo un infortunio?”). 💬`,
     }
   }
 

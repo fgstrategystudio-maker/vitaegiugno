@@ -17,7 +17,7 @@ export default function Assistant({ path }) {
     setMsgs((m) => {
       const greet = {
         from: 'bot',
-        text: `Ciao! Sono l’assistente di ${APP_NAME}. Sei in “${help.title}”. ${help.tagline} Chiedimi pure cosa puoi fare qui o in un’altra sezione.`,
+        text: `Ciao! 👋 Sono l’assistente di ${APP_NAME}. Sei in “${help.title}”. ${help.tagline} ✨\nChiedimi pure cosa puoi fare qui o in un’altra sezione. 💬`,
       }
       // se la chat è vuota o la sezione è cambiata, rinfresca il saluto iniziale
       if (m.length === 0) return [greet]

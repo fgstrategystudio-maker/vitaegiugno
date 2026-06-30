@@ -361,7 +361,11 @@ body {
   .cc-main { max-height: 100vh; }
   .cc-main-inner { padding: 16px 16px 80px; }
   .cc-menu-btn { display: flex; }
-  .cc-topbar { gap: 12px; }
+  /* topbar in colonna: titolo sopra, pulsanti azione sotto (vanno a capo se serve) */
+  .cc-topbar { flex-direction: column; align-items: stretch; gap: 14px; }
+  .cc-topbar-actions { flex-wrap: wrap; gap: 8px; }
+  .cc-topbar-actions .cc-btn-ghost,
+  .cc-topbar-actions .cc-help-btn { flex: 1 1 auto; justify-content: center; }
 }
 
 /* ── print ── */
@@ -397,15 +401,17 @@ body {
 .cc-page > *:nth-child(4) { animation-delay: .14s; }
 .cc-page > *:nth-child(n+5) { animation-delay: .16s; }
 
-/* pulsante "?" guida nella topbar */
+/* pulsante "Rivedi tutorial" nella topbar */
 .cc-help-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: 10px;
-  background: var(--panel); color: var(--accent-ink);
-  border: 1px solid var(--hair); box-shadow: var(--sh-sm);
-  cursor: pointer; font-family: var(--font-serif); font-weight: 600; font-size: 16px;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border-radius: 10px;
+  background: var(--accent-wash); color: var(--accent-ink);
+  border: 1px solid color-mix(in oklab, var(--accent) 24%, var(--hair));
+  box-shadow: var(--sh-sm); cursor: pointer;
+  font-family: var(--font-sans); font-weight: 600; font-size: 13px; white-space: nowrap;
   transition: transform .15s var(--ease), border-color .2s, background .2s;
 }
+.cc-help-btn svg { width: 15px; height: 15px; }
 .cc-help-btn:hover { border-color: var(--accent); background: var(--accent-wash); transform: translateY(-1px); }
 
 /* ── scrim condiviso modali ── */
@@ -465,6 +471,10 @@ body {
 }
 .cc-ob-dot.on { width: 22px; background: var(--accent); }
 .cc-ob-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+/* schermata finale "vuoi fare un giro di prova?": bottoni impilati e a tutta larghezza */
+.cc-ob-choice { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.cc-ob-choice .cc-ob-btn { width: 100%; justify-content: center; margin: 0; }
 
 .cc-ob-btn {
   display: inline-flex; align-items: center; gap: 7px;

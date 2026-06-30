@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   Home, Activity, ClipboardList, Zap, BookOpen, BarChart2, Microscope,
   ShieldCheck, Syringe, TrendingUp, FileText, Stethoscope, Users,
@@ -87,15 +87,41 @@ const PAGE_META = {
   '/impostazioni': { eyebrow: 'SISTEMA',        title: 'Impostazioni'       },
 }
 
+// Ordine di visita del giro guidato (tutte le sezioni, dall'alto in basso del menu).
+const TOUR_ORDER = NAV_GROUPS.flatMap((g) => g.items.map((it) => it.to))
+
 export default function Layout({ children, session, onLogout, backupBanner, onDismissBackup }) {
   const importRef = useRef()
   const location  = useLocation()
+  const navigate  = useNavigate()
   const [darkMode, setDarkMode] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [showOnboard, setShowOnboard] = useState(() => !hasOnboarded())
   const [tourReplay, setTourReplay] = useState(0)
+  const [guided, setGuided] = useState(null) // indice sezione nel giro guidato, oppure null
 
-  const closeOnboard = () => { setOnboarded(); setShowOnboard(false) }
+  // Fine onboarding: se l'utente sceglie il giro guidato, partiamo dalla prima sezione.
+  const closeOnboard = (startTour) => {
+    setOnboarded()
+    setShowOnboard(false)
+    if (startTour) {
+      setMenuOpen(false)
+      setGuided(0)
+      navigate(TOUR_ORDER[0])
+    }
+  }
+
+  // Giro guidato: avanza alla sezione successiva (o termina all'ultima).
+  const guidedNext = () => {
+    setGuided((idx) => {
+      if (idx == null) return null
+      const nextIdx = idx + 1
+      if (nextIdx >= TOUR_ORDER.length) return null
+      navigate(TOUR_ORDER[nextIdx])
+      return nextIdx
+    })
+  }
+  const guidedExit = () => { setGuided(null) }
 
   // Tema default: Gioiello (blu-grigio, palette gioiello vivida)
   React.useEffect(() => {
@@ -208,9 +234,9 @@ export default function Layout({ children, session, onLogout, backupBanner, onDi
                 className="cc-help-btn"
                 onClick={() => setTourReplay((n) => n + 1)}
                 title="Rivedi il tutorial di questa sezione"
-                aria-label="Aiuto sezione"
               >
-                <HelpCircle size={18} />
+                <HelpCircle size={15} />
+                Rivedi tutorial
               </button>
               <button className="cc-btn-ghost" onClick={exportData}>
                 <Download size={15} />
@@ -247,7 +273,16 @@ export default function Layout({ children, session, onLogout, backupBanner, onDi
 
       {/* Onboarding (primo accesso) · tutorial della scheda · assistente virtuale */}
       {showOnboard && <OnboardingModal onClose={closeOnboard} />}
-      <TabTour path={location.pathname} replayKey={tourReplay} enabled={!showOnboard} />
+      <TabTour
+        path={location.pathname}
+        replayKey={tourReplay}
+        enabled={!showOnboard && guided === null}
+        guidedActive={guided !== null}
+        guidedIndex={guided ?? 0}
+        guidedTotal={TOUR_ORDER.length}
+        onGuidedNext={guidedNext}
+        onGuidedExit={guidedExit}
+      />
       <Assistant path={location.pathname} />
     </div>
   )
