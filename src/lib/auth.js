@@ -60,15 +60,23 @@ export async function register(emailRaw, password, name) {
 export async function login(emailRaw, password) {
   const email = String(emailRaw).trim().toLowerCase()
   if (!email || !password) throw new Error('Email e password obbligatorie')
+  // 1) prova il backend
+  let backend = null
   try {
-    const r = await dbCall('loginUser', { email, password })
-    if (r?.ok) return { userId: email, userName: r.name }
-    if (r?.error === 'nouser') throw new Error('Nessun account con questa email')
-    if (r?.error === 'bad') throw new Error('Password errata')
-    throw new Error('backend')
-  } catch (e) {
-    if (/account|errata|obbligatorie/.test(e.message)) throw e
-    return localLogin(email, password) // offline / nessun backend
+    backend = await dbCall('loginUser', { email, password })
+  } catch {
+    backend = null // backend irraggiungibile → si prova comunque il locale
+  }
+  if (backend?.ok) return { userId: email, userName: backend.name }
+  // 2) fallback: account creato offline e salvato solo su questo dispositivo.
+  //    Si tenta SEMPRE, anche se il backend ha detto "nessun account":
+  //    l'account potrebbe esistere solo qui in locale.
+  try {
+    return await localLogin(email, password)
+  } catch {
+    // nessun account locale: messaggio coerente con l'esito del backend
+    if (backend?.error === 'bad') throw new Error('Password errata')
+    throw new Error('Nessun account con questa email')
   }
 }
 
