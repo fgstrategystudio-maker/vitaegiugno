@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 import App from './App'
 import LoginScreen from './components/LoginScreen'
-import { clearSession, setSession, getSession, loadUserData } from './lib/auth'
+import { clearSession, setSession, loadUserData } from './lib/auth'
 import { exportData, daysSinceLastBackup } from './lib/backup'
 import './index.css'
 
@@ -14,9 +14,10 @@ function Root() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Ripristina la sessione salvata (resta loggato tra le visite)
-    const s = getSession()
-    if (s) setSessionState(s)
+    // Nessun login automatico: ad ogni avvio/refresh si riparte dalla schermata di login.
+    // (la sessione resta in localStorage solo per la durata della sessione attiva,
+    //  così il sync dei dati conosce l'utente; viene azzerata ad ogni caricamento)
+    clearSession()
     setLoading(false)
   }, [])
 
